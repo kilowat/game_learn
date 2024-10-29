@@ -21,7 +21,7 @@ console.log(`${productionMode ? 'prod' : 'dev'} ${watchMode ? 'watch' : 'build'}
 const build = await esbuild.context({
   entryPoints: [
     './src/styles/index.scss',
-    { out: 'bundle', in: './src/js/index.ts' },
+    { out: 'bundle', in: './src/index.ts' },
   ],
 
   bundle: true,
@@ -51,7 +51,7 @@ const build = await esbuild.context({
   },
   plugins: [
     htmlPlugin({
-      template: './src/html/index.html',
+      template: './src/index.html',
     }),
     sassPlugin({
       watch: true,
@@ -68,8 +68,8 @@ const build = await esbuild.context({
     copy({
       resolveFrom: 'cwd',
       assets: {
-        from: ['./src/images/*'],
-        to: [`${buildPath}/images`],
+        from: ['./src/assets/*'],
+        to: [`${buildPath}/assets`],
       },
       watch: true,
     }),
