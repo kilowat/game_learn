@@ -31,7 +31,7 @@ const build = await esbuild.context({
   drop: productionMode ? ['debugger', 'console'] : [],
   logLevel: productionMode ? 'error' : 'info',
   minify: productionMode,
-  sourcemap: !productionMode && 'linked',
+  sourcemap: false,
   outdir: buildPath,
   inject: !productionMode ? ['livereload.js'] : [],
   platform: 'browser',
@@ -52,6 +52,7 @@ const build = await esbuild.context({
   plugins: [
     htmlPlugin({
       template: './src/index.html',
+      scriptPlacement: 'body-below'
     }),
     sassPlugin({
       watch: true,
@@ -65,6 +66,7 @@ const build = await esbuild.context({
     SvgPlugin({
       minify: true,
     }),
+    /*
     copy({
       resolveFrom: 'cwd',
       assets: {
@@ -73,13 +75,19 @@ const build = await esbuild.context({
       },
       watch: true,
     }),
+    */
     clean({
-      patterns: [`${buildPath}/**/*`],
+      patterns: [`${buildPath}/**/*`, `!${buildPath}/index.html`],
       cleanOnStartPatterns: ['./prepare'],
       cleanOnEndPatterns: ['./post'],
-    }),
+    })
   ]
 });
+
+//!watchMode ?
+//clean({
+//  patterns: [`${buildPath}/**/*`],
+//}) : { name: 'empy', setup: () => null },
 
 if (watchMode) {
   console.log('watching...')
