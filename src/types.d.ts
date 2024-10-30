@@ -17,3 +17,7 @@ declare module '*.gif' {
     const content: string;
     export default content;
 }
+declare module '*.ldtk' {
+    const content: string;
+    export default content;
+}

@@ -39,6 +39,7 @@ const build = await esbuild.context({
   assetNames: 'assets/[name]-[hash]',
   write: true,
   tsconfig: 'tsconfig.json',
+  external: ['./src/assets/*'],
   loader: {
     '.svg': 'text',
     '.png': 'file',
@@ -48,6 +49,7 @@ const build = await esbuild.context({
     '.woff': 'file',
     '.woff2': 'file',
     '.ttf': 'file',
+    '.ldtk': 'file',
   },
   plugins: [
     htmlPlugin({
@@ -66,7 +68,7 @@ const build = await esbuild.context({
     SvgPlugin({
       minify: true,
     }),
-    /*
+
     copy({
       resolveFrom: 'cwd',
       assets: {
@@ -75,7 +77,7 @@ const build = await esbuild.context({
       },
       watch: true,
     }),
-    */
+
     clean({
       patterns: [`${buildPath}/**/*`, `!${buildPath}/index.html`],
       cleanOnStartPatterns: ['./prepare'],
