@@ -14,7 +14,8 @@
       "es2015.promise",
       "es2015.collection",
       "es2015.iterable",
-      "es2015"
+      "es2015",
+      "ES2017"
     ],
     /* Strict Type-Checking Options */
     "strict": true /* Enable all strict type-checking options. */,

@@ -1,16 +1,40 @@
-import { LdtkResource } from "@excaliburjs/plugin-ldtk";
-import { Engine, Loader, vec } from "excalibur";
+
+import { Resources, loader } from "./resources";
+import { Engine } from "excalibur";
+
 
 const game = new Engine(
     {
-        width: 800,
-        height: 600
+        width: 512,
+        height: 512,
+        suppressPlayButton: true  // Убирает кнопку Play
     }
 );
-const ldtkMap = new LdtkResource('/assets/map.ldtk', { useMapBackgroundColor: true });
+
+/*
+level?.layers.forEach(layer => {
+        if (layer.ldtkLayer.__type === 'IntGrid') {
+          layer.ldtkLayer.intGridCsv.forEach((tile, index) => {
+            if (tile !== 0) { // Если тайл является препятствием
+              const x = (index % layer.__cWid) * layer.__gridSize;
+              const y = Math.floor(index / layer.__cWid) * layer.__gridSize;
+
+              const collider = new Actor({
+                x: x,
+                y: y,
+                width: layer.__gridSize,
+                height: layer.__gridSize,
+                collisionType: CollisionType.Fixed
+              });
+
+              game.add(collider);
+            }
+          });
+        }
+      });
+*/
 
 
-const loader = new Loader([ldtkMap]);
 game.start(loader).then(() => {
-    ldtkMap.addToScene(game.currentScene);
+    Resources.LdtkResource.addToScene(game.currentScene);
 });

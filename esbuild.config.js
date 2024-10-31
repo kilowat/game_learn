@@ -20,7 +20,7 @@ console.log(`${productionMode ? 'prod' : 'dev'} ${watchMode ? 'watch' : 'build'}
 
 const build = await esbuild.context({
   entryPoints: [
-    './src/styles/index.scss',
+    './styles/index.scss',
     { out: 'bundle', in: './src/index.ts' },
   ],
 
@@ -39,7 +39,7 @@ const build = await esbuild.context({
   assetNames: 'assets/[name]-[hash]',
   write: true,
   tsconfig: 'tsconfig.json',
-  external: ['./src/assets/*'],
+  // external: ['assets/*'],
   loader: {
     '.svg': 'text',
     '.png': 'file',
@@ -53,7 +53,7 @@ const build = await esbuild.context({
   },
   plugins: [
     htmlPlugin({
-      template: './src/index.html',
+      template: 'index.html',
       scriptPlacement: 'body-below'
     }),
     sassPlugin({
@@ -68,16 +68,16 @@ const build = await esbuild.context({
     SvgPlugin({
       minify: true,
     }),
-
+    /*
     copy({
       resolveFrom: 'cwd',
       assets: {
-        from: ['./src/assets/*'],
+        from: ['./assets/*'],
         to: [`${buildPath}/assets`],
       },
       watch: true,
     }),
-
+    */
     clean({
       patterns: [`${buildPath}/**/*`, `!${buildPath}/index.html`],
       cleanOnStartPatterns: ['./prepare'],
