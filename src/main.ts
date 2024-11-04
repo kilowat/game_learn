@@ -10,7 +10,7 @@ const game = new Engine(
         suppressPlayButton: true,
         physics: {
             solver: SolverStrategy.Arcade,
-            gravity: vec(0, 10),
+            gravity: vec(0, 50),
         },
         scenes: {
             board: {
