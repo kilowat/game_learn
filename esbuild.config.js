@@ -1,11 +1,9 @@
 import { argv } from 'node:process';
 import * as esbuild from 'esbuild';
 import { clean } from 'esbuild-plugin-clean';
-import { copy } from 'esbuild-plugin-copy';
 import { sassPlugin } from 'esbuild-sass-plugin';
 import esbuildPluginTsc from 'esbuild-plugin-tsc';
 import SvgPlugin from 'esbuild-plugin-svg';
-import * as path from 'path';
 import { htmlPlugin } from '@jgoz/esbuild-plugin-html';
 const buildPath = 'dist';
 const publicPath = '/';
@@ -50,6 +48,7 @@ const build = await esbuild.context({
     '.woff2': 'file',
     '.ttf': 'file',
     '.ldtk': 'file',
+    '.ldtkl': 'file',
   },
   plugins: [
     htmlPlugin({

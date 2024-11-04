@@ -21,3 +21,7 @@ declare module '*.ldtk' {
     const content: string;
     export default content;
 }
+declare module '*.ldtkl' {
+    const content: string;
+    export default content;
+}
