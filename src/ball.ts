@@ -1,6 +1,8 @@
 import { Actor, Canvas, CollisionType, Color, EmitterType, Engine, GraphicsComponent, ParticleEmitter, PointerComponent, vec, Vector } from "excalibur";
 
 export class Ball extends Actor {
+    private particle?: ParticleEmitter;
+
     constructor(x: number, y: number) {
         super({
             pos: vec(x, y),
@@ -16,7 +18,7 @@ export class Ball extends Actor {
 
     }
     onInitialize(engine: Engine): void {
-        const emitter = new ParticleEmitter({
+        this.particle = new ParticleEmitter({
             x: 0,
             y: 0,
             radius: 5,
@@ -41,7 +43,7 @@ export class Ball extends Actor {
         });
         // add the emitter as a child actor, it will draw on top of the parent actor
         // and move with the parent
-        this.addChild(emitter);
+        this.addChild(this.particle);
     }
 
     public removeWithEffect(): void {
