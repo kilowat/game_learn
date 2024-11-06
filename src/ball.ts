@@ -1,24 +1,14 @@
 import { Actor, Canvas, CollisionType, Engine, GraphicsComponent, PointerComponent, vec, Vector } from "excalibur";
 
 export class Ball extends Actor {
-
-    private _mouseOn = false;
-
-    constructor(config: { pos: Vector }) {
+    constructor(x: number, y: number) {
         super({
-            pos: config.pos,
+            pos: vec(x, y),
             radius: 50,
             collisionType: CollisionType.Active,
         });
-        const canvas = new Canvas({
-            width: 200,
-            height: 200,
-            draw: (ctx) => {
-                ctx.arc(100, 100, 50, 0, (Math.PI / 180) * 360)
-                ctx.fill();
-            }
-        })
-        this.graphics.use(canvas);
+
+        this.drawGraphic();
 
         this.on('pointerup', () => {
             this.kill()
@@ -27,5 +17,23 @@ export class Ball extends Actor {
     }
     onInitialize(engine: Engine): void {
 
+    }
+
+    public removeWithEffect(): void {
+
+    }
+
+    private drawGraphic() {
+        const canvas = new Canvas({
+            width: 200,
+            height: 200,
+            draw: (ctx) => {
+                ctx.arc(100, 100, 50, 0, (Math.PI / 180) * 360)
+                ctx.fillStyle = 'blue';
+                ctx.fill();
+            }
+        })
+
+        this.graphics.use(canvas);
     }
 }

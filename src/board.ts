@@ -10,11 +10,13 @@ export class BoardScene extends Scene {
             interval: 500,
             repeats: true,
             fcn: () => {
-                const ball = new Ball({ pos: vec(random.integer(0, 200), 0) })
+                const ball = new Ball(random.integer(0, 200), 0)
                 this.add(ball);
             }
         })
-        this.add(timer)
+        //this.add(timer)
         //timer.start()
+        const ball = new Ball(random.integer(0, 200), 0)
+        this.add(ball);
     }
 }
