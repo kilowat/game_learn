@@ -3,10 +3,7 @@ import { Actor, Canvas, CollisionType, Engine, Random, Scene, Timer, vec } from 
 
 export class BoardScene extends Scene {
     onInitialize(engine: Engine): void {
-
-
         const random = new Random(1337)
-
         const timer = new Timer({
             random,
             randomRange: [0, 500],
@@ -18,6 +15,6 @@ export class BoardScene extends Scene {
             }
         })
         this.add(timer)
-        // timer.start()
+        //timer.start()
     }
 }
