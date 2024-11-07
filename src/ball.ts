@@ -1,24 +1,46 @@
-import { Actor, Canvas, CollisionType, Color, EmitterType, Engine, GraphicsComponent, ParticleEmitter, PointerComponent, vec, Vector } from "excalibur";
+import { Actor, Canvas, CircleCollider, CollisionType, Color, EmitterType, Engine, GraphicsComponent, ParticleEmitter, PointerComponent, vec, Vector } from "excalibur";
 
 export class Ball extends Actor {
-    private particle?: ParticleEmitter;
+    particle!: ParticleEmitter;
+    x = 100;
+    y = 100;
+    size = 50;
 
-    constructor(x: number, y: number) {
+    constructor(size = 50) {
         super({
-            pos: vec(x, y),
-            radius: 50,
+            radius: size,
+            color: Color.Red,
             collisionType: CollisionType.Active,
         });
-
-        this.drawGraphic();
 
         this.on('pointerup', () => {
             this.removeWithEffect();
         });
-
+        this.size = size;
+    }
+    update(engine: Engine, delta: number): void {
+        // const scale = (this.width / this.size) / 100;
+        //this.scale = vec(scale, scale);
     }
     onInitialize(engine: Engine): void {
-        this.particle = new ParticleEmitter({
+        this.pos = vec(this.x, this.y);
+        this.particle = this.buildParticle();
+        this.addChild(this.particle);
+    }
+
+    public removeWithEffect(): void {
+        this.body.useGravity = false;
+        this.particle.isEmitting = true;
+
+        this.actions
+            .moveBy(vec(1, 1), 100)
+            .callMethod(() => {
+                this.kill()
+            });
+    }
+
+    private buildParticle() {
+        return new ParticleEmitter({
             x: 0,
             y: 0,
             radius: 5,
@@ -41,33 +63,6 @@ export class Ball extends Actor {
             endColor: Color.Blue,
             focusAccel: 800
         });
-        // add the emitter as a child actor, it will draw on top of the parent actor
-        // and move with the parent
-        this.addChild(this.particle);
-    }
-
-    public removeWithEffect(): void {
-        this.body.useGravity = false;
-        const emiter = this.children.find((value, index) => index == 0) as ParticleEmitter;
-        emiter.isEmitting = true;
-        this.actions
-            .moveBy(vec(1, 1), 100)
-            .callMethod(() => {
-                this.kill()
-            });
-    }
-
-    private drawGraphic() {
-        const canvas = new Canvas({
-            width: 200,
-            height: 200,
-            draw: (ctx) => {
-                ctx.arc(100, 100, 50, 0, (Math.PI / 180) * 360)
-                ctx.fillStyle = 'blue';
-                ctx.fill();
-            }
-        })
-
-        this.graphics.use(canvas);
     }
 }
+
