@@ -10,7 +10,7 @@ export class BoardScene extends Scene {
             interval: 500,
             repeats: true,
             fcn: () => {
-                const ball = new Ball()
+                const ball = new Ball({ x: random.integer(100, 400), y: 0 })
                 this.add(ball);
             }
         })
@@ -19,9 +19,5 @@ export class BoardScene extends Scene {
         const ball = new Ball()
 
         this.add(ball);
-        setTimeout(() => {
-            ball.size = 200;
-        }, 1000)
-
     }
 }

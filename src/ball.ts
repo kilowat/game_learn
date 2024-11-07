@@ -1,39 +1,38 @@
 import { Actor, Canvas, CircleCollider, CollisionType, Color, EmitterType, Engine, GraphicsComponent, ParticleEmitter, PointerComponent, vec, Vector } from "excalibur";
 
+interface BallConfig {
+    x?: number,
+    y?: number,
+    size?: number,
+}
+
 export class Ball extends Actor {
     particle!: ParticleEmitter;
-    x = 100;
-    y = 100;
-    size = 50;
 
-    constructor(size = 50) {
+    constructor({ x = 0, y = 0, size = 50 }: BallConfig = {}) {
         super({
+            pos: vec(x, y),
             radius: size,
             color: Color.Red,
             collisionType: CollisionType.Active,
         });
 
-        this.on('pointerup', () => {
+        this.on('pointerdown', () => {
             this.removeWithEffect();
         });
-        this.size = size;
-    }
-    update(engine: Engine, delta: number): void {
-        // const scale = (this.width / this.size) / 100;
-        //this.scale = vec(scale, scale);
     }
     onInitialize(engine: Engine): void {
-        this.pos = vec(this.x, this.y);
         this.particle = this.buildParticle();
         this.addChild(this.particle);
     }
 
     public removeWithEffect(): void {
         this.body.useGravity = false;
+        this.vel = vec(0, 0);
         this.particle.isEmitting = true;
 
         this.actions
-            .moveBy(vec(1, 1), 100)
+            .delay(100)
             .callMethod(() => {
                 this.kill()
             });
