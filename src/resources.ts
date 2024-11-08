@@ -1,19 +1,15 @@
-import { LdtkResource } from "@excaliburjs/plugin-ldtk";
-import Map from './assets/map.ldtk';
-import ldtkLevel0 from './assets/map/Level_0.ldtkl';
-import ldtkLevel1 from './assets/map/Level_1.ldtkl';
-import terrain from './assets/terrain.png';
-import { Loader } from "excalibur";
+
+import { ImageSource, Loader } from "excalibur";
+import chickenSpriteSheet from './assets/chicken-000-sheet.png';
+import cornSpriteSheet from './assets/corn-000-sheet.png';
+import cowSpriteSheet from './assets/cow-000-sheet.png';
+import staticSpriteSheet from './assets/spritesheet.png';
 
 export const Resources = {
-    LdtkResource: new LdtkResource(Map, {
-        useMapBackgroundColor: true,
-        pathMap: [
-            { path: 'terrain.png', output: terrain },
-            { path: 'Level_0.ldtkl', output: ldtkLevel0 },
-            { path: 'Level_1.ldtkl', output: ldtkLevel1 },
-        ]
-    })
+    chickenSpirtSheet: new ImageSource(chickenSpriteSheet),
+    cornSpriteSheet: new ImageSource(cornSpriteSheet),
+    cowSpriteSheet: new ImageSource(cowSpriteSheet),
+    staticSpriteSheet: new ImageSource(staticSpriteSheet),
 } as const
 
 export const loader = new Loader();

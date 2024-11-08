@@ -1,7 +1,7 @@
 
 import { Resources, loader } from "./resources";
 import { Actor, CollisionType, Color, Engine, FadeInOut, SolverStrategy, vec } from "excalibur";
-import { BoardScene } from "board";
+import { FermaScene } from "fermaScene";
 
 const game = new Engine(
     {
@@ -13,13 +13,12 @@ const game = new Engine(
             gravity: vec(0, 50),
         },
         scenes: {
-            board: {
-                scene: BoardScene,
+            ferma: {
+                scene: FermaScene,
             }
         }
     }
 );
-
 
 const inTransition = new FadeInOut({
     duration: 500,
@@ -27,7 +26,7 @@ const inTransition = new FadeInOut({
     color: Color.ExcaliburBlue
 });
 
-game.start('board', {
+game.start('ferma', {
     loader,
     inTransition,
 })
