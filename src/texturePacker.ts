@@ -1,29 +1,50 @@
+import { ImageSource, SourceView, Sprite, SpriteSheet } from "excalibur";
+import { Resources } from "resources";
 
-/**
- * game.start(loader).then(() => {
-    const intGrid = Resources.LdtkResource.getIntGridLayers()[0];
-    const layer = intGrid.ldtkLayer;
-    intGrid.ldtkLayer.intGridCsv.forEach((tile, index) => {
-        if (tile == 2) {
-            const x = (index % layer.__cWid) * layer.__gridSize;
-            const y = Math.floor(index / layer.__cWid) * layer.__gridSize;
-            const w = layer.__gridSize;
-            const h = layer.__gridSize;
+// Определим все необходимые интерфейсы для вашего JSON формата
 
-            const collider = new Actor({
-                x: x,
-                y: y,
-                width: w,
-                height: h,
-                collisionType: CollisionType.Fixed
-            });
-            game.currentScene.add(collider)
-        }
-    })
+export interface TexturePackerData {
+    frames: FrameElement[];
+    meta: Meta;
+}
 
-    Resources.LdtkResource.addToScene(game.currentScene);
-});
-import SpriteSheetData from './assets/spritesheet.json'
+interface FrameElement {
+    filename: string;
+    frame: SpriteSourceSize;
+    rotated: boolean;
+    trimmed: boolean;
+    spriteSourceSize: SpriteSourceSize;
+    sourceSize: Size;
+    pivot: Pivot;
+}
+
+interface SpriteSourceSize {
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+}
+
+interface Pivot {
+    x: number;
+    y: number;
+}
+
+interface Size {
+    w: number;
+    h: number;
+}
+
+interface Meta {
+    app: string;
+    version: string;
+    image: string;
+    format: string;
+    size: Size;
+    scale: number;
+}
+
+// Получаем тип для имён файлов из JSON
 
 interface PackerFrame {
     filename: string,
@@ -43,7 +64,7 @@ interface PackerData {
 interface sheetMap {
     [index: string]: number
 }
-class TexturePackerSpriteSheet {
+export class TexturePackerSpriteSheet {
     private spriteSheet!: SpriteSheet;
     private sheetMap: sheetMap = {};
 
@@ -71,4 +92,3 @@ class TexturePackerSpriteSheet {
         return this.spriteSheet.getSprite(this.sheetMap[fileName], 0);
     }
 }
- */
