@@ -1,6 +1,7 @@
 {
-  "frames": {
-    "cow-mask.png": {
+  "frames": [
+    {
+      "filename": "cow-mask.png",
       "frame": {
         "x": 1,
         "y": 1,
@@ -24,7 +25,8 @@
         "y": 0.5
       }
     },
-    "cow-000.png": {
+    {
+      "filename": "cow-000.png",
       "frame": {
         "x": 1,
         "y": 47,
@@ -48,7 +50,8 @@
         "y": 0.5
       }
     },
-    "icon-corn.png": {
+    {
+      "filename": "icon-corn.png",
       "frame": {
         "x": 74,
         "y": 1,
@@ -72,7 +75,8 @@
         "y": 0.5
       }
     },
-    "icon-egg.png": {
+    {
+      "filename": "icon-egg.png",
       "frame": {
         "x": 1,
         "y": 93,
@@ -96,7 +100,8 @@
         "y": 0.5
       }
     },
-    "icon-milk.png": {
+    {
+      "filename": "icon-milk.png",
       "frame": {
         "x": 74,
         "y": 51,
@@ -120,7 +125,8 @@
         "y": 0.5
       }
     },
-    "icon-money.png": {
+    {
+      "filename": "icon-money.png",
       "frame": {
         "x": 106,
         "y": 1,
@@ -144,7 +150,8 @@
         "y": 0.5
       }
     },
-    "grass.png": {
+    {
+      "filename": "grass.png",
       "frame": {
         "x": 100,
         "y": 51,
@@ -168,7 +175,8 @@
         "y": 0.5
       }
     },
-    "corn-mask.png": {
+    {
+      "filename": "corn-mask.png",
       "frame": {
         "x": 50,
         "y": 93,
@@ -192,7 +200,8 @@
         "y": 0.5
       }
     },
-    "corn-000.png": {
+    {
+      "filename": "corn-000.png",
       "frame": {
         "x": 100,
         "y": 91,
@@ -216,7 +225,8 @@
         "y": 0.5
       }
     },
-    "chicken-mask.png": {
+    {
+      "filename": "chicken-mask.png",
       "frame": {
         "x": 71,
         "y": 99,
@@ -240,7 +250,8 @@
         "y": 0.5
       }
     },
-    "chicken-000.png": {
+    {
+      "filename": "chicken-000.png",
       "frame": {
         "x": 1,
         "y": 127,
@@ -264,7 +275,7 @@
         "y": 0.5
       }
     }
-  },
+  ],
   "meta": {
     "app": "http://free-tex-packer.com",
     "version": "0.6.7",
