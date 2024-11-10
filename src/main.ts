@@ -1,13 +1,14 @@
 
 import { Resources, loader } from "./resources";
-import { Actor, CollisionType, Color, Engine, FadeInOut, SolverStrategy, vec } from "excalibur";
+import { Actor, CollisionType, Color, DisplayMode, Engine, FadeInOut, SolverStrategy, vec } from "excalibur";
 import { FermaScene } from "fermaScene";
 
 const game = new Engine(
     {
-        width: 512,
-        height: 512,
+        width: 400,
+        height: 400,
         suppressPlayButton: true,
+        displayMode: DisplayMode.FitScreen,
         physics: {
             solver: SolverStrategy.Arcade,
             gravity: vec(0, 50),

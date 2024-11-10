@@ -1,4 +1,4 @@
-import { ImageSource, SourceView, Sprite, SpriteSheet } from "excalibur";
+import { ImageSource, Loadable, SourceView, Sprite, SpriteSheet } from "excalibur";
 import { Resources } from "resources";
 
 // Определим все необходимые интерфейсы для вашего JSON формата
@@ -64,16 +64,16 @@ interface PackerData {
 interface sheetMap {
     [index: string]: number
 }
-export class TexturePackerSpriteSheet {
+export class TexturePackerSpriteSheet implements Loadable<PackerData> {
     private spriteSheet!: SpriteSheet;
     private sheetMap: sheetMap = {};
+    private views: SourceView[] = [];
+    private image!: ImageSource;
 
-    constructor(public readonly data: PackerData, public readonly image: ImageSource) {
-        const views: SourceView[] = [];
-
+    constructor(public readonly data: PackerData, public readonly path: string) {
         for (let i = 0; i < data.frames.length; i++) {
             const frameData = data.frames[i];
-            views.push({
+            this.views.push({
                 x: frameData.frame.x,
                 y: frameData.frame.y,
                 width: frameData.frame.w,
@@ -82,10 +82,21 @@ export class TexturePackerSpriteSheet {
 
             this.sheetMap[frameData.filename] = i;
         }
+        const image = new ImageSource(this.path);
         this.spriteSheet = SpriteSheet.fromImageSourceWithSourceViews({
             image,
-            sourceViews: views,
+            sourceViews: this.views,
         })
+        this.image = image;
+    }
+
+    async load(): Promise<PackerData> {
+        await this.image.load();
+        return Promise.resolve(this.data);
+    }
+
+    isLoaded(): boolean {
+        return this.image.isLoaded();
     }
 
     public getSprite(fileName: string): Sprite {
