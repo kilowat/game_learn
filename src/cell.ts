@@ -1,3 +1,4 @@
+import { Board } from "board";
 import { Actor, CollisionType, Color, Engine, ExcaliburGraphicsContext, Graphic, GraphicsGroup, ImageSource, Rectangle, Sprite, vec } from "excalibur";
 import { Resources } from "resources";
 
@@ -26,14 +27,16 @@ export class Cell extends Actor {
 
     constructor({ x, y, type = 'empty' }: CellOptions) {
         super({
+            width: 10,
+            height: 10,
+            collisionType: CollisionType.Fixed,
             pos: vec(x, y),
-
         })
         this._type = type;
     }
 
     onInitialize(engine: Engine): void {
-        this.pointer.useGraphicsBounds = true;
+        //this.pointer.useGraphicsBounds = true;
         this.setAnimations();
         const group = this.getAnimation();
         this.graphics.use(group)

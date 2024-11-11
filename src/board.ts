@@ -2,28 +2,27 @@ import { Cell } from "cell";
 import { Actor, Color, Engine, vec, Text, ScreenElement } from "excalibur";
 
 export class Board extends Actor {
-    private _selected?: Cell | null;
-    private clicked?: Cell | null;
+    private _selected: Cell | null = null;
+    private clicked: Cell | null = null;
     private text!: Text;
 
-    get selected(): Cell | null | undefined {
+    get selected(): Cell | null {
         return this._selected;
     }
 
     set selected(value: Cell | null) {
-        if (value) {
-            this.onSelected(value)
-        } else if (this._selected) {
-            this.onUnSelected(this._selected)
+        if (this._selected) {
+            this.onUnSelected(this._selected);
         }
-
         this._selected = value;
+        if (value) {
+            this.onSelected(value);
+        }
     }
 
     constructor() {
         super()
     }
-
     onInitialize(engine: Engine): void {
         this.text = new Text(
             {
@@ -48,13 +47,15 @@ export class Board extends Actor {
                 actor.on('pointerdown', () => {
                     this.onClicked(actor)
                 })
+                actor.on('pointerup', () => {
+                    this.clicked = actor;
+                })
+                actor.on('pointermove', () => {
+                    this.onMove(actor)
+                })
                 this.addChild(actor);
             }
         }
-    }
-
-    update(engine: Engine, delta: number): void {
-
     }
 
     private onHover(actor: Cell) {
@@ -62,12 +63,17 @@ export class Board extends Actor {
     }
 
     private onLeave(actor: Cell) {
-        if (this.clicked && this.clicked == actor) {
+        if (this.clicked && this.clicked === actor) {
             this.clicked = null;
             return;
         }
         this.selected = null;
+    }
 
+    private onMove(actor: Cell) {
+        if (!this._selected) {
+            this.selected = actor;
+        }
     }
 
     private onClicked(value: Cell) {
@@ -79,7 +85,6 @@ export class Board extends Actor {
         this.text.text = value.id.toString();
         console.log(value)
         value.isSelected = true;
-
     }
 
     private onUnSelected(value: Cell) {
