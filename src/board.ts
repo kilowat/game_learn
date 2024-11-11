@@ -1,9 +1,10 @@
 import { Cell } from "cell";
-import { Actor, Color, Engine } from "excalibur";
+import { Actor, Color, Engine, vec, Text, ScreenElement } from "excalibur";
 
 export class Board extends Actor {
     private hovered?: Cell | null;
     private clicked?: Cell;
+    private text!: Text;
 
     constructor() {
         super({
@@ -12,6 +13,15 @@ export class Board extends Actor {
     }
 
     onInitialize(engine: Engine): void {
+        this.text = new Text(
+            {
+                text: `Hovered: ${this.hovered?.id ?? 'empty'}`,
+            }
+        );
+        const element = new ScreenElement({ pos: vec(10, 10), z: 1 });
+        element.graphics.use(this.text)
+        engine.add(element);
+
         for (let i = 1; i < 9; i++) {
             for (let j = 1; j < 9; j++) {
                 const x = i * 44;
@@ -31,14 +41,18 @@ export class Board extends Actor {
         }
     }
 
+    update(engine: Engine, delta: number): void {
+        console.log(this.hovered)
+        this.text.text = this.hovered?.id.toString() ?? 'empty';
+
+    }
+
     onHover(actor: Cell) {
         this.hovered = actor;
     }
     onLeave(actor: Cell) {
-        if (this.clicked?.id === actor.id) {
-            return;
-        }
         this.hovered = null;
+
     }
     onClicked(actor: Cell) {
         this.clicked = actor;
