@@ -2,20 +2,32 @@ import { Cell } from "cell";
 import { Actor, Color, Engine, vec, Text, ScreenElement } from "excalibur";
 
 export class Board extends Actor {
-    private hovered?: Cell | null;
-    private clicked?: Cell;
+    private _selected?: Cell | null;
+    private clicked?: Cell | null;
     private text!: Text;
 
+    get selected(): Cell | null | undefined {
+        return this._selected;
+    }
+
+    set selected(value: Cell | null) {
+        if (value == null) {
+            this.onUnSelected(this._selected!)
+        } else {
+            this.onSelected(value!);
+        }
+
+        this._selected = value;
+    }
+
     constructor() {
-        super({
-            color: Color.Gray
-        })
+        super()
     }
 
     onInitialize(engine: Engine): void {
         this.text = new Text(
             {
-                text: `Hovered: ${this.hovered?.id ?? 'empty'}`,
+                text: '',
             }
         );
         const element = new ScreenElement({ pos: vec(10, 10), z: 1 });
@@ -42,19 +54,32 @@ export class Board extends Actor {
     }
 
     update(engine: Engine, delta: number): void {
-        console.log(this.hovered)
-        this.text.text = this.hovered?.id.toString() ?? 'empty';
 
     }
 
-    onHover(actor: Cell) {
-        this.hovered = actor;
+    private onHover(actor: Cell) {
+        this.selected = actor;
     }
-    onLeave(actor: Cell) {
-        this.hovered = null;
+
+    private onLeave(actor: Cell) {
+        if (this.clicked == actor) {
+            this.clicked = null;
+            return;
+        }
+        this.selected = null;
 
     }
-    onClicked(actor: Cell) {
-        this.clicked = actor;
+
+    private onClicked(value: Cell) {
+        this.clicked = value;
+        value.type = 'chicken'
+    }
+
+    private onSelected(value: Cell) {
+        this.text.text = value.id.toString();
+    }
+
+    private onUnSelected(value: Cell) {
+        this.text.text = 'empty'
     }
 }

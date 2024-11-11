@@ -10,6 +10,7 @@ export class FermaScene extends Scene {
     onInitialize(engine: Engine): void {
 
         const borad = new Board();
+
         this.add(borad);
     }
 }
