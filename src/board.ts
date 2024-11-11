@@ -11,10 +11,10 @@ export class Board extends Actor {
     }
 
     set selected(value: Cell | null) {
-        if (value == null) {
-            this.onUnSelected(this._selected!)
-        } else {
-            this.onSelected(value!);
+        if (value) {
+            this.onSelected(value)
+        } else if (this._selected) {
+            this.onUnSelected(this._selected)
         }
 
         this._selected = value;
@@ -62,7 +62,7 @@ export class Board extends Actor {
     }
 
     private onLeave(actor: Cell) {
-        if (this.clicked == actor) {
+        if (this.clicked && this.clicked == actor) {
             this.clicked = null;
             return;
         }
@@ -77,9 +77,13 @@ export class Board extends Actor {
 
     private onSelected(value: Cell) {
         this.text.text = value.id.toString();
+        console.log(value)
+        value.isSelected = true;
+
     }
 
     private onUnSelected(value: Cell) {
         this.text.text = 'empty'
+        value.isSelected = false;
     }
 }

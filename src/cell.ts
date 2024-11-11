@@ -1,4 +1,4 @@
-import { Actor, CollisionType, Color, Engine, ExcaliburGraphicsContext, GraphicsGroup, vec } from "excalibur";
+import { Actor, CollisionType, Color, Engine, ExcaliburGraphicsContext, Graphic, GraphicsGroup, ImageSource, Rectangle, Sprite, vec } from "excalibur";
 import { Resources } from "resources";
 
 export type CellType = 'empty' | 'flower' | 'chicken' | 'cow';
@@ -21,6 +21,7 @@ export class Cell extends Actor {
         this._type = value;
 
     }
+
     public isSelected = false;
 
     constructor({ x, y, type = 'empty' }: CellOptions) {
@@ -33,41 +34,69 @@ export class Cell extends Actor {
 
     onInitialize(engine: Engine): void {
         this.pointer.useGraphicsBounds = true;
-        const sprite = Resources.staticSpriteSheet.getSprite('grass.png');
-        this.graphics.use(sprite)
+        this.setAnimations();
+        const group = this.getAnimation();
+        this.graphics.use(group)
         this.graphics.onPostDraw = (ctx: ExcaliburGraphicsContext) => {
             ctx.save();
             ctx.opacity = this.isSelected ? 0.4 : 0;
             ctx.drawRectangle(vec(-25, -25), 50, 50, Color.Red)
             ctx.restore();
         }
-
     }
     private onTypeChanged(value: CellType, oldValue: CellType) {
         if (this.type != 'empty') return;
 
-        const grass = this.graphics.current!;
-
-        const chicken = this.graphics.use(Resources.staticSpriteSheet.getSprite('chicken-000.png'));
-        const group = new GraphicsGroup({
-            useAnchor: true, // position group from the top left
-            members: [
-                {
-                    graphic: grass,
-                    offset: vec(0, 0)
-                },
-                {
-                    graphic: chicken,
-                    offset: vec(4, 4)
-                }
-            ],
-        })
-        this.graphics.use(group)
+        this.graphics.use(value);
     }
-    canTypeChange(value: CellType) {
+
+    private canTypeChange(value: CellType) {
         console.log(this.type, value)
         return this.type != value;
     }
 
+    update(engine: Engine, delta: number): void {
+
+    }
+
+    private getAnimation(value: CellType = 'empty') {
+        const chicken = Resources.staticSpriteSheet.getSprite('chicken-000.png');
+        const grass = Resources.staticSpriteSheet.getSprite('grass.png');
+        const membars = [
+            {
+                graphic: grass,
+                offset: vec(0, 0)
+            },
+        ]
+
+        switch (value) {
+            case 'chicken': membars.push(
+                {
+                    graphic: chicken,
+                    offset: vec(4, 4)
+                }
+            )
+        }
+
+        return new GraphicsGroup({
+            useAnchor: true, // position group from the top left
+            members: membars,
+        })
+    }
+
+    private setAnimations() {
+        const empty = this.getAnimation('empty');
+        const chicken = this.getAnimation('chicken');
+
+        this.graphics.add('empty', empty)
+        this.graphics.add('chicken', chicken)
+
+        this.graphics.onPostDraw = (ctx: ExcaliburGraphicsContext) => {
+            ctx.save();
+            ctx.opacity = this.isSelected ? 0.4 : 0;
+            ctx.drawRectangle(vec(-25, -25), 50, 50, Color.Red)
+            ctx.restore();
+        }
+    }
 }
 
