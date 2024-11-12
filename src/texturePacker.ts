@@ -1,4 +1,4 @@
-import { ImageSource, Loadable, SourceView, Sprite, SpriteSheet } from "excalibur";
+import { GetSpriteOptions, ImageSource, Loadable, SourceView, Sprite, SpriteSheet } from "excalibur";
 import { Resources } from "resources";
 
 // Определим все необходимые интерфейсы для вашего JSON формата
@@ -99,7 +99,7 @@ export class TexturePackerSpriteSheet implements Loadable<PackerData> {
         return this.image.isLoaded();
     }
 
-    public getSprite(fileName: string): Sprite {
-        return this.spriteSheet.getSprite(this.sheetMap[fileName], 0);
+    public getSprite(fileName: string, options?: GetSpriteOptions): Sprite {
+        return this.spriteSheet.getSprite(this.sheetMap[fileName], 0, options);
     }
 }

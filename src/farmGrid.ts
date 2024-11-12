@@ -23,6 +23,7 @@ export class FarmGrid extends Actor {
     constructor() {
         super()
     }
+
     onInitialize(engine: Engine): void {
         this.text = new Text({ text: '', });
         const element = new ScreenElement({ pos: vec(10, 10), z: 1 });
@@ -84,7 +85,6 @@ export class FarmGrid extends Actor {
 
     private onSelected(value: FarmGridCell) {
         this.text.text = value.id.toString();
-        console.log(value)
         value.isSelected = true;
     }
 
