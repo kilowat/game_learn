@@ -11,6 +11,8 @@ export interface CellOptions {
 
 export class FarmGridCell extends Actor {
     private _type!: CellType;
+    private _slot!: SlotIcon;
+
     public get type(): CellType {
         return this._type;
     }
@@ -42,6 +44,9 @@ export class FarmGridCell extends Actor {
             ctx.drawRectangle(vec(-25, -25), 50, 50, Color.Blue)
             ctx.restore();
         }
+
+        this._slot = new SlotIcon();
+        this.addChild(this._slot);
     }
 
 
@@ -49,4 +54,19 @@ export class FarmGridCell extends Actor {
         if (this.type != 'empty') return;
     }
 
+}
+
+
+class SlotIcon extends Actor {
+    onInitialize(engine: Engine): void {
+        const chicken = Resources.staticSpriteSheet.getSprite('chicken-mask.png');
+        const cow = Resources.staticSpriteSheet.getSprite('cow-mask.png');
+        const flower = Resources.staticSpriteSheet.getSprite('corn-mask.png');
+
+        this.graphics.add('chicken', chicken);
+        this.graphics.add('cow', cow)
+        this.graphics.add('flower', flower)
+
+        this.graphics.use('chicken');
+    }
 }
