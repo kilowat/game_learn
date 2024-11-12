@@ -1,16 +1,16 @@
-import { Cell } from "cell";
+import { FarmGridCell } from "farmGridCell";
 import { Actor, Color, Engine, vec, Text, ScreenElement } from "excalibur";
 
-export class Board extends Actor {
-    private _selected: Cell | null = null;
-    private clicked: Cell | null = null;
+export class FarmGrid extends Actor {
+    private _selected: FarmGridCell | null = null;
+    private clicked: FarmGridCell | null = null;
     private text!: Text;
 
-    get selected(): Cell | null {
+    get selected(): FarmGridCell | null {
         return this._selected;
     }
 
-    set selected(value: Cell | null) {
+    set selected(value: FarmGridCell | null) {
         if (this._selected) {
             this.onUnSelected(this._selected);
         }
@@ -24,11 +24,7 @@ export class Board extends Actor {
         super()
     }
     onInitialize(engine: Engine): void {
-        this.text = new Text(
-            {
-                text: '',
-            }
-        );
+        this.text = new Text({ text: '', });
         const element = new ScreenElement({ pos: vec(10, 10), z: 1 });
         element.graphics.use(this.text)
         engine.add(element);
@@ -37,32 +33,37 @@ export class Board extends Actor {
             for (let j = 1; j < 9; j++) {
                 const x = i * 44;
                 const y = j * 44;
-                const actor = new Cell({ x, y });
-                actor.on('pointerenter', () => {
-                    this.onHover(actor)
-                })
-                actor.on('pointerleave', () => {
-                    this.onLeave(actor)
-                })
-                actor.on('pointerdown', () => {
-                    this.onClicked(actor)
-                })
-                actor.on('pointerup', () => {
-                    this.clicked = actor;
-                })
-                actor.on('pointermove', () => {
-                    this.onMove(actor)
-                })
-                this.addChild(actor);
+                const cell = this.createCell(x, y);
+                this.addChild(cell);
             }
         }
     }
 
-    private onHover(actor: Cell) {
+    private createCell(x: number, y: number) {
+        const actor = new FarmGridCell({ x, y });
+        actor.on('pointerenter', () => {
+            this.onHover(actor)
+        })
+        actor.on('pointerleave', () => {
+            this.onLeave(actor)
+        })
+        actor.on('pointerdown', () => {
+            this.onClicked(actor)
+        })
+        actor.on('pointerup', () => {
+            this.clicked = actor;
+        })
+        actor.on('pointermove', () => {
+            this.onMove(actor)
+        })
+        return actor;
+    }
+
+    private onHover(actor: FarmGridCell) {
         this.selected = actor;
     }
 
-    private onLeave(actor: Cell) {
+    private onLeave(actor: FarmGridCell) {
         if (this.clicked && this.clicked === actor) {
             this.clicked = null;
             return;
@@ -70,24 +71,24 @@ export class Board extends Actor {
         this.selected = null;
     }
 
-    private onMove(actor: Cell) {
+    private onMove(actor: FarmGridCell) {
         if (!this._selected) {
             this.selected = actor;
         }
     }
 
-    private onClicked(value: Cell) {
+    private onClicked(value: FarmGridCell) {
         this.clicked = value;
         value.type = 'chicken'
     }
 
-    private onSelected(value: Cell) {
+    private onSelected(value: FarmGridCell) {
         this.text.text = value.id.toString();
         console.log(value)
         value.isSelected = true;
     }
 
-    private onUnSelected(value: Cell) {
+    private onUnSelected(value: FarmGridCell) {
         this.text.text = 'empty'
         value.isSelected = false;
     }
