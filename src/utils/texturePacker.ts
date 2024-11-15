@@ -1,5 +1,4 @@
 import { GetSpriteOptions, ImageSource, Loadable, SourceView, Sprite, SpriteSheet } from "excalibur";
-import { Resources } from "resources";
 
 // Определим все необходимые интерфейсы для вашего JSON формата
 

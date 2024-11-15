@@ -1,5 +1,5 @@
 import { range, SpriteSheet, Animation } from "excalibur";
-import { Resources } from "resources";
+import { Resources } from "utils/resources";
 
 function createAnimations() {
     const chickenSpriteSheet = SpriteSheet.fromImageSource({

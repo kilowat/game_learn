@@ -1,7 +1,16 @@
 
-import { Resources, loader } from "./resources";
-import { Actor, CollisionType, Color, DisplayMode, Engine, FadeInOut, SolverStrategy, vec } from "excalibur";
-import { FermaScene } from "fermaScene";
+import { loader } from "./utils/resources";
+import { Color, DisplayMode, Engine, FadeInOut, SolverStrategy, vec } from "excalibur";
+import { FermaScene } from "./scenes/FermaScene";
+import { Game } from "Game";
+
+
+const inTransition = new FadeInOut({
+    duration: 500,
+    direction: 'in',
+    color: Color.ExcaliburBlue
+});
+
 
 const game = new Engine(
     {
@@ -21,14 +30,11 @@ const game = new Engine(
     }
 );
 
-const inTransition = new FadeInOut({
-    duration: 500,
-    direction: 'in',
-    color: Color.ExcaliburBlue
-});
+
+
+
 
 game.start('ferma', {
     loader,
     inTransition,
 })
-
