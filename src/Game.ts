@@ -1,10 +1,9 @@
 import { DisplayMode, Engine, EngineOptions, Loader, SolverStrategy, vec } from "excalibur";
 import { GameState } from "states/GameState";
-import { loader, Resources } from "utils/resources";
+import { loader } from "utils/resources";
 
 export class Game extends Engine {
     public readonly gamseState: GameState;
-    public readonly reasources = Resources;
 
     constructor(gameOptions: EngineOptions, gameState: GameState) {
         super(gameOptions);
