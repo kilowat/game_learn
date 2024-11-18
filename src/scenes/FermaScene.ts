@@ -9,6 +9,6 @@ export class FermaScene extends Scene {
     }
 
     onInitialize(engine: Engine): void {
-
+        console.log(this.gameState)
     }
 }

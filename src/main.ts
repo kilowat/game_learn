@@ -1,7 +1,8 @@
-import { DisplayMode, EngineOptions, SolverStrategy, vec } from "excalibur";
-import { Game } from "Game";
+import { DisplayMode, Engine, EngineOptions, SolverStrategy, vec } from "excalibur";
 import { FermaScene } from "scenes/FermaScene";
 import { GameState } from "states/GameState";
+import { loader } from "utils/resources";
+
 const gameState = new GameState();
 const gameOptions: EngineOptions = {
     width: 400,
@@ -18,5 +19,7 @@ const gameOptions: EngineOptions = {
 };
 
 
-const game = new Game(gameOptions, gameState);
-game.start();
+const game = new Engine(gameOptions);
+game.start(loader).then(() => {
+    game.goToScene('ferma');
+});
