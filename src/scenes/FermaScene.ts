@@ -1,14 +1,12 @@
 
-import { Engine, Scene } from "excalibur";
-import { GameState } from "states/GameState";
+import { Actor, Color, Engine, Scene, vec } from "excalibur";
 
 
 export class FermaScene extends Scene {
-    constructor(private gameState: GameState) {
-        super()
-    }
 
     onInitialize(engine: Engine): void {
-        console.log(this.gameState)
+
+        this.add(new Actor({ pos: vec(0, 0), color: Color.Red, width: 20, height: 20 }))
+        console.log('inited')
     }
 }
