@@ -1,7 +1,7 @@
-import { Engine, Scene, ScreenElement, Text } from "excalibur";
-import { BaseScene } from "./BaseScene";
+import { Engine, Events, Scene, ScreenElement, Text } from "excalibur";
 
-export class MenuScene extends BaseScene {
+
+export class MenuScene extends Scene {
     onInitialize(engine: Engine): void {
         const text = new Text({ text: 'Menu Scene' });
         const uiElement = new ScreenElement();

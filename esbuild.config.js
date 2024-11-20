@@ -19,7 +19,7 @@ console.log(`${productionMode ? 'prod' : 'dev'} ${watchMode ? 'watch' : 'build'}
 const build = await esbuild.context({
   entryPoints: [
     './styles/index.scss',
-    { out: 'bundle', in: './src/main.ts' },
+    { out: 'bundle', in: './src/Game.ts' },
   ],
 
   bundle: true,

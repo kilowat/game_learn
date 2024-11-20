@@ -2,6 +2,8 @@ import { DisplayMode, Engine, Loadable, Loader, SolverStrategy, vec } from "exca
 import { FermaScene } from "scenes/FermaScene";
 import { MenuScene } from "scenes/MenuScene";
 
+export const gameModel = new GameModel();
+
 const game = new Engine({
     width: 400,
     height: 400,
@@ -16,6 +18,7 @@ const game = new Engine({
         menu: MenuScene,
     }
 });
+
 
 
 
