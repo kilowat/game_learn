@@ -1,3 +1,3 @@
-class GameModel {
-    public score = 0;
+export class GameModel {
+
 }

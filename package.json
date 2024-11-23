@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@excaliburjs/plugin-ldtk": "^0.29.5",
-    "excalibur": "^0.29.3"
+    "excalibur": "^0.29.3",
+    "xstate": "^5.19.0"
   }
 }
