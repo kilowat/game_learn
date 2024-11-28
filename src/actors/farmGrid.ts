@@ -17,5 +17,3 @@ export class FarmGrid extends Actor {
         }
     }
 }
-
-export class FarmCell extends Actor { }

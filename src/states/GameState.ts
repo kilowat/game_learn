@@ -20,12 +20,17 @@ export class InitGameState implements GameState {
 }
 
 export class StartState implements GameState {
+    private _game!: Game;
     enter(game: Game): void {
+        this._game = game;
         game.goToScene(StartScene.route);
-        console.log('started')
+        console.log('started state')
     }
     update(delta: number): void {
 
+        if (this._game.currentSceneName !== StartScene.route) {
+            this._game.state = new PlayingGameState();
+        }
     }
     exit(): void {
 
@@ -34,7 +39,7 @@ export class StartState implements GameState {
 
 export class PlayingGameState implements GameState {
     enter(game: Game): void {
-
+        console.log('play state')
     }
     update(delta: number): void {
 

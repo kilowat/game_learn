@@ -1,14 +1,16 @@
-import { DisplayMode, Engine, EngineOptions, Loadable, Loader, SolverStrategy, vec } from "excalibur";
+
+import { DisplayMode, Engine, EngineOptions, EventEmitter, GameEvent, Input, Loadable, Loader, PointerScope, SolverStrategy, vec } from "excalibur";
 import { GameModel } from "models/GameModel";
 import { FermaScene } from "scenes/FermaScene";
 import { StartScene } from "scenes/StartScene";
 import { GameState, InitGameState, StartState } from "states/GameState";
 
 const gameOptions: EngineOptions = {
-    width: 400,
-    height: 400,
+
     suppressPlayButton: true,
-    displayMode: DisplayMode.FitScreen,
+    displayMode: DisplayMode.FillScreen,
+    canvasElementId: 'game',
+    pointerScope: PointerScope.Canvas,
     physics: {
         solver: SolverStrategy.Arcade,
         gravity: vec(0, 50),
@@ -22,10 +24,18 @@ const gameOptions: EngineOptions = {
 
 export class Game extends Engine {
     private _currentState: GameState = new InitGameState();
-    public readonly model: GameModel = new GameModel();
+    private _model: GameModel = new GameModel();
 
     constructor() {
         super(gameOptions)
+    }
+
+    public scoreUp(value: number) {
+        this._model.score += value;
+    }
+
+    public get model() {
+        return this._model;
     }
 
     public get state() {
@@ -38,6 +48,7 @@ export class Game extends Engine {
         this._currentState.enter(this);
     }
 
+
     async start() {
         await super.start();
         this.state = new StartState();
@@ -48,6 +59,6 @@ export class Game extends Engine {
     }
 }
 
-const game = new Game();
+export const game = new Game();
 
 game.start();

@@ -7,6 +7,5 @@ export class FermaScene extends Scene {
     onInitialize(engine: Engine): void {
 
         this.add(new Actor({ pos: vec(0, 0), color: Color.Red, width: 20, height: 20 }))
-        console.log('inited')
     }
 }

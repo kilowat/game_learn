@@ -7,3 +7,61 @@ svg {
     height: var(--icon-size, 24px);
     fill: var(--icon-fill, currentColor);
 }
+
+#root {
+    /* When this is relative, child elements positioned absolutely will
+       be relative to this element, not the document providing more accurate
+       positioning, since the canvas will be at (0, 0) */
+    position: relative;
+}
+
+#root #ui {
+    /* This will make the UI appear on top of the canvas */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+#ui .main-menu {
+    position: absolute;
+    top: calc(50% - 125px);
+    left: calc(50% - 125px);
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    border: 2px solid;
+    width: 250px;
+}
+
+/* These are scene-based UI styles */
+#ui .main-menu .button {
+    border-radius: 8px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .1);
+    color: white;
+    font-size: 34px;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    width: 100%;
+}
+
+#ui .main-menu .button.button--start {
+    background: rgb(45, 134, 163);
+}
+
+.bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+    svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+    }
+}

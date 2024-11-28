@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <!-- Небо -->
+  <rect width="600" height="400" fill="#87CEEB"/>
+  
+  <!-- Солнце -->
+  <circle cx="500" cy="70" r="40" fill="#FFD700"/>
+  
+  <!-- Поле -->
+  <rect y="300" width="600" height="100" fill="#7CFC00"/>
+  
+  <!-- Холмы на заднем плане -->
+  <path d="M-50 300 L150 200 L350 300" fill="#90EE90"/>
+  <path d="M350 300 L500 180 L650 300" fill="#98FB98"/>
+  
+  <!-- Амбар -->
+  <rect x="350" y="200" width="150" height="100" fill="#8B4513"/>
+  <polygon points="350 200, 425 130, 500 200" fill="#A0522D"/>
+  
+  <!-- Окна амбара -->
+  <rect x="380" y="230" width="30" height="30" fill="#D2B48C"/>
+  <rect x="440" y="230" width="30" height="30" fill="#D2B48C"/>
+  
+  <!-- Забор -->
+  <g fill="none" stroke="#8B4513" stroke-width="5">
+    <line x1="50" y1="300" x2="50" y2="250" />
+    <line x1="100" y1="300" x2="100" y2="230" />
+    <line x1="150" y1="300" x2="150" y2="250" />
+    <line x1="200" y1="300" x2="200" y2="230" />
+  </g>
+  
+  <!-- Трава перед забором -->
+  <path d="M0 300 Q50 280, 100 300 Q150 320, 200 300 Q250 280, 300 300" fill="#32CD32"/>
+  
+  <!-- Трава у амбара -->
+  <path d="M350 300 Q400 280, 450 300 Q500 320, 550 300" fill="#32CD32"/>
+  
+  <!-- Облака -->
+  <ellipse cx="150" cy="100" rx="60" ry="30" fill="white"/>
+  <ellipse cx="250" cy="80" rx="80" ry="40" fill="white"/>
+</svg>

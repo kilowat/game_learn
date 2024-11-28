@@ -53,7 +53,7 @@ const build = await esbuild.context({
   plugins: [
     htmlPlugin({
       template: 'index.html',
-      scriptPlacement: 'body-below'
+      scriptPlacement: 'body-above'
     }),
     sassPlugin({
       watch: true,
