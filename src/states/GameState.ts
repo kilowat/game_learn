@@ -1,4 +1,5 @@
 import { Game } from "Game";
+import { FermaScene } from "scenes/FermaScene";
 import { StartScene } from "scenes/StartScene";
 
 export interface GameState {
@@ -23,7 +24,7 @@ export class StartState implements GameState {
     private _game!: Game;
     enter(game: Game): void {
         this._game = game;
-        game.goToScene(StartScene.route);
+        game.goToScene(FermaScene.route);
         console.log('started state')
     }
     update(delta: number): void {

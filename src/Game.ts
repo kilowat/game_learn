@@ -1,5 +1,5 @@
 
-import { DisplayMode, Engine, EngineOptions, EventEmitter, GameEvent, Input, Loadable, Loader, PointerScope, SolverStrategy, vec } from "excalibur";
+import { Color, DisplayMode, Engine, EngineOptions, EventEmitter, FadeInOut, GameEvent, Input, Loadable, Loader, PointerScope, SolverStrategy, vec } from "excalibur";
 import { GameModel } from "models/GameModel";
 import { FermaScene } from "scenes/FermaScene";
 import { StartScene } from "scenes/StartScene";
@@ -16,8 +16,16 @@ const gameOptions: EngineOptions = {
         gravity: vec(0, 50),
     },
     scenes: {
-        [FermaScene.route]: FermaScene,
-        [StartScene.route]: StartScene,
+        [FermaScene.route]: {
+            scene: FermaScene,
+            transitions: {
+                in: new FadeInOut({ duration: 500, direction: 'in', color: Color.Black }),
+                out: new FadeInOut({ duration: 500, direction: 'out', color: Color.Black })
+            }
+        },
+        [StartScene.route]: {
+            scene: StartScene,
+        },
     }
 };
 
