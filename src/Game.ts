@@ -8,7 +8,7 @@ import { GameState, InitGameState, StartState } from "states/GameState";
 const gameOptions: EngineOptions = {
 
     suppressPlayButton: true,
-    displayMode: DisplayMode.FillScreen,
+    displayMode: DisplayMode.FitScreen,
     canvasElementId: 'game',
     pointerScope: PointerScope.Canvas,
     physics: {

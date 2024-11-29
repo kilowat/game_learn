@@ -9,6 +9,7 @@ export class StartScene extends Scene {
     static route = 'start';
 
     onActivate(context: SceneActivationContext<unknown>): void {
+        ui.classList.add('--active');
         const bgEl = document.createElement('div');
         bgEl.className = 'bg';
         bgEl.innerHTML = bg;
@@ -31,6 +32,7 @@ export class StartScene extends Scene {
 
     onDeactivate(context: SceneActivationContext): void {
         ui.innerHTML = ''
+        ui.classList.remove('--active')
     }
 
     onInitialize(engine: Engine): void {

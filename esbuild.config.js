@@ -39,7 +39,7 @@ const build = await esbuild.context({
   tsconfig: 'tsconfig.json',
   // external: ['assets/*'],
   loader: {
-    '.svg': 'text',
+    '.svg': 'file',
     '.png': 'file',
     '.jpg': 'file',
     '.gif': 'file',

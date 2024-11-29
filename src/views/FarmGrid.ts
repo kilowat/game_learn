@@ -10,11 +10,12 @@ export class FarmGrid extends ScreenElement {
     private gridHeight: number = 0;
 
     constructor() {
-        super()
+        super({
+        })
     }
 
     onInitialize(engine: Engine): void {
-
+        this.on('pointerdown', (e) => { console.log(e) })
         this.gridWidth = (this.count * this.w) + ((this.count - 1) * this.gap);
         this.gridHeight = (this.count * this.h) + ((this.count - 1) * this.gap);
 
@@ -31,6 +32,10 @@ export class FarmGrid extends ScreenElement {
                     w: this.w,
                     h: this.h
                 });
+                cell.on('pointerenter', (e) => {
+                    cell.color = Color.Blue;
+                    console.log(e)
+                })
                 this._cells.push(cell);
                 this.addChild(cell);
             }
