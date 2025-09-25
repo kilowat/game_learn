@@ -11,21 +11,20 @@ export class FermaScene extends Scene {
         grid.onTileEvent = (event, cell: FarmCell) => {
             if (event === "hover") {
                 console.log("hover:", cell);
-                cell.color = Color.Blue;
+                cell.setColor(Color.Blue);
             }
             if (event === "leave") {
                 console.log("leave:", cell);
-                cell.color = Color.Red;
+                cell.setColor(Color.Red);
             }
             if (event === "click") {
-                cell.color = Color.Green;
+                cell.setColor(Color.Green);
+                setTimeout(() => {
+                    cell.setColor(Color.Red);
+                }, 100)
                 console.log("click:", cell);
             }
 
-            if (event === "pointerup") {
-                cell.color = Color.Yellow;
-                console.log("pointerup:", cell);
-            }
         };
         this.add(grid)
     }

@@ -1,7 +1,8 @@
-import { Actor, Color, Engine, vec, Text, ScreenElement, EventEmitter } from "excalibur";
+import { Actor, Color, Engine, vec, Text, ScreenElement, EventEmitter, Rectangle } from "excalibur";
 import { ActorEvents } from "excalibur/build/dist/Actor";
 
-type TileState = 'idle' | 'hovered' | 'clicked';
+
+
 
 type TileEvents = {
     hover: FarmCell;
@@ -58,30 +59,53 @@ export class FarmGrid extends ScreenElement {
     }
 }
 
-export class FarmCell extends ScreenElement {
-    public events = new EventEmitter<TileEvents & ActorEvents>();
+type TileState = 'idle' | 'hovered' | 'clicked';
 
-    constructor({ x = 0, y = 0, w = 0, h = 0 }) {
-        super({
-            x: x,
-            y: y,
-            width: w,
-            height: h,
+export class FarmCell extends ScreenElement {
+    private rect: Rectangle;
+    public events = new EventEmitter<TileEvents & ActorEvents>();
+    private _state: TileState = 'idle';
+    private _suppressLeaveUntil = 0;
+    constructor(opts: { x: number; y: number; w: number; h: number }) {
+        super({ ...opts, color: Color.Red });
+
+        this.rect = new Rectangle({
+            width: opts.w,
+            height: opts.h,
             color: Color.Red
-        })
+        });
+
+        this.graphics.use(this.rect);
     }
 
+    setColor(color: Color) {
+        this.rect.color = color;
+    }
     onInitialize(): void {
-        this.on("pointerenter", () => {
-            this.events.emit("hover", this);
+        this.on('pointerenter', () => {
+            if (this._state === 'idle') {
+                this._state = 'hovered';
+                this.events.emit('hover', this);
+            }
         });
 
-        this.on("pointerup", () => {
-            this.events.emit("click", this);
+        this.on('pointerup', () => {
+            if (this._state === 'hovered') {
+                this.events.emit('click', this);
+                // Подавляем leave на пару кадров
+                this._suppressLeaveUntil = performance.now() + 1;
+            }
         });
 
-        this.on("pointerleave", () => {
-            this.events.emit("leave", this);
+        this.on('pointerleave', () => {
+            if (performance.now() < this._suppressLeaveUntil) {
+                // это фантомный leave → игнорим
+                return;
+            }
+            if (this._state !== 'idle') {
+                this._state = 'idle';
+                this.events.emit('leave', this);
+            }
         });
     }
 }
