@@ -1,7 +1,5 @@
-import { Actor, Color, Engine, vec, Text, ScreenElement, EventEmitter, Rectangle } from "excalibur";
+import { Color, Engine, vec, Text, ScreenElement, EventEmitter, Rectangle } from "excalibur";
 import { ActorEvents } from "excalibur/build/dist/Actor";
-
-
 
 
 type TileEvents = {
@@ -66,6 +64,7 @@ export class FarmCell extends ScreenElement {
     public events = new EventEmitter<TileEvents & ActorEvents>();
     private _state: TileState = 'idle';
     private _suppressLeaveUntil = 0;
+
     constructor(opts: { x: number; y: number; w: number; h: number }) {
         super({ ...opts, color: Color.Red });
 
@@ -81,10 +80,12 @@ export class FarmCell extends ScreenElement {
     setColor(color: Color) {
         this.rect.color = color;
     }
+
     onInitialize(): void {
         this.on('pointerenter', () => {
             if (this._state === 'idle') {
                 this._state = 'hovered';
+                this.setHover();
                 this.events.emit('hover', this);
             }
         });
@@ -104,8 +105,19 @@ export class FarmCell extends ScreenElement {
             }
             if (this._state !== 'idle') {
                 this._state = 'idle';
+                this.removeHover()
                 this.events.emit('leave', this);
             }
         });
+    }
+
+    setHover() {
+        const color = Color.fromRGB(0, 0, 255, 0.1);
+        this.setColor(color);
+    }
+
+    removeHover() {
+        const color = Color.Red;
+        this.setColor(color);
     }
 }
