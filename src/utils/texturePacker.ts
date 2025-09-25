@@ -1,6 +1,5 @@
 import { GetSpriteOptions, ImageSource, Loadable, SourceView, Sprite, SpriteSheet } from "excalibur";
 
-// Определим все необходимые интерфейсы для вашего JSON формата
 
 export interface TexturePackerData {
     frames: FrameElement[];
@@ -42,8 +41,6 @@ interface Meta {
     size: Size;
     scale: number;
 }
-
-// Получаем тип для имён файлов из JSON
 
 interface PackerFrame {
     filename: string,
