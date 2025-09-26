@@ -1,5 +1,5 @@
 
-import { Color, DisplayMode, Engine, EngineOptions, EventEmitter, FadeInOut, GameEvent, Input, Loadable, Loader, PointerScope, SolverStrategy, vec } from "excalibur";
+import { Color, DisplayMode, Engine, EngineOptions, FadeInOut, Loader, PointerScope, SolverStrategy, vec } from "excalibur";
 import { GameModel } from "models/GameModel";
 import { FermaScene } from "scenes/FermaScene";
 import { StartScene } from "scenes/StartScene";
