@@ -60,10 +60,10 @@ export class FarmGrid extends ScreenElement {
 type TileState = 'idle' | 'hovered' | 'clicked';
 
 export class FarmCell extends ScreenElement {
+    private _suppressLeaveUntil = 0;
     private rect: Rectangle;
     public events = new EventEmitter<TileEvents & ActorEvents>();
     private _state: TileState = 'idle';
-    private _suppressLeaveUntil = 0;
 
     constructor(opts: { x: number; y: number; w: number; h: number }) {
         super({ ...opts, color: Color.Red });
