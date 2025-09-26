@@ -1,6 +1,5 @@
 import { Color, Engine, vec, Text, ScreenElement, EventEmitter, Rectangle } from "excalibur";
 import { ActorEvents } from "excalibur/build/dist/Actor";
-import { chikenIcon } from "resources";
 
 
 type TileEvents = {

@@ -58,10 +58,12 @@ export const cowSpriteSheet = SpriteSheet.fromImageSource({
 });
 
 //icons
+export const icons = {
+    chicken: chickenSpriteSheet.getSprite(0, 0),
+    flower: flowerSpriteSheet.getSprite(0, 0),
+    cow: cowSpriteSheet.getSprite(0, 0),
+} as const
 
-export const chikenIcon = chickenSpriteSheet.getSprite(0, 0);
-export const flowerIcon = flowerSpriteSheet.getSprite(0, 0);
-export const cowIcon = cowSpriteSheet.getSprite(0, 0);
 // animations
 
 export const chickenAnimation = Animation.fromSpriteSheet(

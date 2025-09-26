@@ -1,6 +1,6 @@
 
-import { Actor, Color, Engine, Scene, vec } from "excalibur";
-import { chikenIcon } from "resources";
+import { Actor, Canvas, Color, Engine, Scene, vec } from "excalibur";
+import { icons } from "resources";
 
 import { FarmGrid, FarmCell } from "views/FarmGrid";
 
@@ -19,7 +19,8 @@ export class FermaScene extends Scene {
             }
             if (event === "click") {
                 console.log("click:", cell);
-                cell.graphics.add(chikenIcon)
+                cell.graphics.add(icons.chicken)
+
             }
 
         };
