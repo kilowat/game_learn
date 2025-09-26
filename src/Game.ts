@@ -1,6 +1,7 @@
 
 import { Color, DisplayMode, Engine, EngineOptions, FadeInOut, Loader, PointerScope, SolverStrategy, vec } from "excalibur";
 import { GameModel } from "models/GameModel";
+import { loader } from "resources";
 import { FermaScene } from "scenes/FermaScene";
 import { StartScene } from "scenes/StartScene";
 import { GameState, InitGameState, StartState } from "states/GameState";
@@ -58,7 +59,7 @@ export class Game extends Engine {
 
 
     async start() {
-        await super.start();
+        await super.start(loader);
         this.state = new StartState();
     }
 
